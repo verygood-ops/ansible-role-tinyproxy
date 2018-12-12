@@ -10,7 +10,7 @@ tinyproxy_logfile: "/var/log/tinyproxy/tinyproxy.log"
 tinyproxy_loglevel: "Info"
 tinyproxy_pidfile: "/var/run/tinyproxy/tinyproxy.pid"
 tinyproxy_maxclient: 100
-tinyproxy_minSpareServers: 5
+tinyproxy_minSpareServers: 10
 tinyproxy_maxSpareServers: 20
 tinyproxy_startServers: 10
 tinyproxy_maxRequestsPerChild: 0
