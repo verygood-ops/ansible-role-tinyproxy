@@ -15,7 +15,7 @@ tinyproxy_maxSpareServers: 20
 tinyproxy_startServers: 10
 tinyproxy_maxRequestsPerChild: 0
 tinyproxy_allows:
-   - 127.0.0.1
+  - 127.0.0.1
 
 tinyproxy_viaProxyName: "tinyproxy"
 tinyproxy_disableViaHeader: "no"
@@ -33,7 +33,7 @@ tinyproxy_connectPorts:
   - 563
 
 # Package states: installed or latest
-tinyproxy_pkg_state: installed
+tinyproxy_pkg_state: present
 
 # Service states: started or stopped
 tinyproxy_service_state: started
