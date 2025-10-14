@@ -40,3 +40,7 @@ tinyproxy_service_state: started
 
 # Service enabled on startup: yes or no
 tinyproxy_service_enabled: yes
+
+# this will install a precompiled binary, if set to true. not available in official repo packages for now. VULNAI-128
+install_precompiled_binary: false
+tinyproxy_binary_version: "1.11.2"
