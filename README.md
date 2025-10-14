@@ -31,7 +31,7 @@ Ansible host for configure Tinyproxy
 ```
 
 # Prebuilt binary
-Sometimes we need to install a prebuilt binary which is not available in official repository. Place prebuilt binary into the `files/` folder and adjust parameters which are
+Sometimes we need to install a prebuilt/precompiled binary which is not available in official repository. We do not want to drag ansible tasks to pull from source and make it everytime during self-provisioning, so build it and place prebuilt binary into the `files/` folder and adjust parameters which are
 ```
 install_precompiled_binary: true
 tinyproxy_binary_version: "1.11.2"
