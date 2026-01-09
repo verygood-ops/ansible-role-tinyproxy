@@ -30,6 +30,29 @@
   when: install_precompiled_binary | default(false)
   tags: ["packages", "tinyproxy"]
 
+- name: Create systemd override directory for tinyproxy
+  file:
+    path: /etc/systemd/system/tinyproxy.service.d
+    state: directory
+    mode: "0755"
+  when: install_precompiled_binary | default(false)
+
+- name: Override ExecStart to use /etc/tinyproxy/tinyproxy.conf
+  copy:
+    dest: /etc/systemd/system/tinyproxy.service.d/override.conf
+    mode: "0644"
+    content: |
+      [Service]
+      Environment=
+      ExecStart=
+      ExecStart=/usr/bin/tinyproxy -d -c /etc/tinyproxy/tinyproxy.conf
+  when: install_precompiled_binary | default(false)
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: true
+  when: install_precompiled_binary | default(false)
+
 - name: ensure tinyproxy is started/stopped
   service: name=tinyproxy state={{ tinyproxy_service_state }} enabled={{ tinyproxy_service_enabled }}
   tags: ["service", "tinyproxy"]
