@@ -20,15 +20,38 @@
   when: tinyproxy_filteractivated
   tags: ["configuration", "tinyproxy"]
 
-- name: Copy tinyproxy {{ tinyproxy_binary_version }} binary
-  copy:
-    src: "tinyproxy-{{ tinyproxy_binary_version }}"
-    dest: /usr/bin/tinyproxy
-    mode: "0755"
-    owner: root
-    group: root
+- name: Install precompiled tinyproxy binary and systemd override
+  block:
+    - name: Copy tinyproxy {{ tinyproxy_binary_version }} binary
+      copy:
+        src: "tinyproxy-{{ tinyproxy_binary_version }}"
+        dest: /usr/bin/tinyproxy
+        mode: "0755"
+        owner: root
+        group: root
+      tags: ["packages", "tinyproxy"]
+
+    - name: Create systemd override directory for tinyproxy
+      file:
+        path: /etc/systemd/system/tinyproxy.service.d
+        state: directory
+        mode: "0755"
+
+    - name: Override ExecStart to use /etc/tinyproxy/tinyproxy.conf
+      copy:
+        dest: /etc/systemd/system/tinyproxy.service.d/override.conf
+        mode: "0644"
+        content: |
+          [Service]
+          Environment=
+          ExecStart=
+          ExecStart=/usr/bin/tinyproxy -d -c /etc/tinyproxy/tinyproxy.conf
+
+    - name: Reload systemd daemon
+      systemd:
+        daemon_reload: true
+
   when: install_precompiled_binary | default(false)
-  tags: ["packages", "tinyproxy"]
 
 - name: ensure tinyproxy is started/stopped
   service: name=tinyproxy state={{ tinyproxy_service_state }} enabled={{ tinyproxy_service_enabled }}
