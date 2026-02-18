@@ -4,7 +4,7 @@ tinyproxy_group: "nogroup"
 tinyproxy_port: "8888"
 
 tinyproxy_listen: "0.0.0.0"
-tinyproxy_timeout: 30
+tinyproxy_timeout: 60
 tinyproxy_statfile: "/usr/share/tinyproxy/stats.html"
 tinyproxy_logfile: "/var/log/tinyproxy/tinyproxy.log"
 tinyproxy_loglevel: "Error"
